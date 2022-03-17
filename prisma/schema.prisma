@@ -1,0 +1,53 @@
+datasource Db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model MemberRecord {
+  id                    String          @id @Db.Uuid
+  slackId               String          @unique
+  email                 String          @unique
+  name                  String
+  isAdmin               Boolean         @default(false)
+  isMobilized           Boolean         @default(false)
+  isExemptFromCheckIn   Boolean         @default(false)
+  isOptedOutOfMap       Boolean         @default(false)
+  checkInToken          String?         @Db.Uuid
+  isRestricted          Boolean         @default(false)
+  isUltraRestricted     Boolean         @default(false)
+  isDeleted             Boolean         @default(false)
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+
+  // Relationships
+
+  checkins              CheckInRecord[]
+
+  @@map(name: "members")
+}
+
+model CheckInRecord {
+  id                    String          @id @Db.Uuid
+  latitude              Float?          @Db.DoublePrecision
+  longitude             Float?          @Db.DoublePrecision
+  country               String?
+  state                 String?
+  city                  String?
+  isSafe                Boolean
+  isAbleToAssist        Boolean
+  isAbleToWork          Boolean
+  comment               String?
+  memberId              String          @Db.Uuid
+  createdAt             DateTime?       @default(now())
+  updatedAt             DateTime?       @updatedAt
+
+  // Relationships
+
+  member                MemberRecord    @relation(fields: [memberId], references: [id])
+
+  @@map(name: "checkins")
+}

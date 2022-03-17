@@ -1,0 +1,35 @@
+.wrapper
+  display: flex
+  width: 100%
+  align-items: flex-start
+  gap: 10px
+  margin-bottom: 32px
+
+.filters
+  width: 100%
+.filtersRow
+  display: flex
+  flex-wrap: wrap
+  gap: 16px
+  margin-bottom: 12px
+
+.select
+  width: 180px
+  margin-bottom: 8px
+
+.clearFilters
+  padding-top: 30px
+  width: 200px
+  margin-bottom: 8px
+  button
+    width: 100%
+
+@media (max-width: 600px)
+  .wrapper
+    display: block
+
+@media (max-width: 480px)
+  .select, .clearFilters
+    width: 100%
+  .row
+    flex-direction: column

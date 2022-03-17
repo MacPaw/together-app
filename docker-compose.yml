@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: together-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: together
+      POSTGRES_ROOT_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+
+  node:
+    image: node:16.14.0
+    container_name: together
+    ports:
+      - 3000:3000
+    working_dir: /app
+    command: bash -c "
+      set -ex \
+      && npm install \
+      && npm run dev"
+    volumes:
+      - ./:/app
+      - /app/node_modules

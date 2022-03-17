@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "jobs-dist",
+    "strict": true,
+    "lib": ["esnext"],
+    "esModuleInterop": true,
+    "types": []
+  },
+  "include": [
+    "jobs"
+  ]
+}

@@ -1,0 +1,41 @@
+display_information:
+  name: Together App
+  description: An app to help us stay together during these tough times.
+  background_color: "#36373d"
+features:
+  bot_user:
+    display_name: Together App
+    always_online: true
+  shortcuts:
+    - name: Check In Someone Else
+      type: global
+      callback_id: renderCheckInOtherMemberConfirmation
+      description: Check in another member of your organization with Together App.
+    - name: Check In
+      type: global
+      callback_id: renderCheckInSelfConfirmation
+      description: Check in using Together App.
+    - name: Repeat Last Check In
+      type: global
+      callback_id: renderRepeatCheckInConfirmation
+      description: Repeat your last check in with Together App.
+  slash_commands:
+    - command: /together
+      url: https://{{host}}/api/slack/command
+      description: Call the Together App menu to check in.
+      should_escape: false
+oauth_config:
+  scopes:
+    bot:
+      - commands
+      - users:read
+      - users:read.email
+      - chat:write
+settings:
+  interactivity:
+    is_enabled: true
+    request_url: https://{{host}}/api/slack/action
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
+
