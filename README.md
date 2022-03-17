@@ -23,7 +23,7 @@
     ·
     <a href="#wrench--custom-app-configuration"><strong>Customization</strong></a>
     ·
-    <a href="https://github.com/raycharius/organization-safety-check-and-map/issues"><strong>Open a GitHub Issue</strong></a>
+    <a href="https://github.com/MacPaw/together-app/issues"><strong>Open a GitHub Issue</strong></a>
   </p>
 </p>
 
