@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="docs/images/hero.png" alt="Logo" width="600px">
+    <img src="docs/images/logo.png" alt="Logo" width="600px">
 </p>
 
 <p align="center">
@@ -42,13 +42,13 @@
 </p>
 
 <p align="center">
-    <img src="docs/images/check-in.gif" alt="Daily Check Ins">
+    <img src="docs/images/check-in-demo.gif" alt="Daily Check Ins">
 </p>
 
 *** 
 
 <p align="center">
-    <h3 align="center">Stay secure – physically and digitally</h3>
+    <h3 align="center">Stay secure – physically and digitally.</h3>
 </p>
 
 <p align="center">
@@ -64,13 +64,13 @@
 </p>
 
 <p align="center">
-    <img src="docs/images/members.gif" alt="Daily Check Ins">
+    <img src="docs/images/members-demo.gif" alt="Daily Check Ins">
 </p>
 
 ***
 
 <p align="center">
-    <h3 align="center">Know where your people are and coordinate with a real-time map.</h3>
+    <h3 align="center">Know where your people are and coordinate with an interactive map.</h3>
 </p>
 
 <p align="center">
@@ -82,7 +82,7 @@
 </p>
 
 <p align="center">
-    <img src="docs/images/map.gif" alt="Daily Check Ins">
+    <img src="docs/images/map-demo.gif" alt="Organization Map">
 </p>
 
 ***
