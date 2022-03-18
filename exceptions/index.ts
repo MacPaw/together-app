@@ -9,5 +9,6 @@ export * from './InvalidSlackRequestError';
 export * from './LocationProviderError';
 export * from './MemberCannotRepeatCheckInError';
 export * from './MemberNotFoundError';
+export * from './MissingEnvironmentVariableError';
 export * from './NoLocationParamsProvidedError';
 export * from './SlackMemberProviderError';
