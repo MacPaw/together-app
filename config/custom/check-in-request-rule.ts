@@ -1,6 +1,3 @@
 import type { Nullable, CheckInRequestRule } from '../../types';
 
-export const checkInRequestRule: Nullable<CheckInRequestRule> = {
-  requestCheckInDirectMessage: false,
-  requestCheckInOrganizationChannel: true,
-};
+export const checkInRequestRule: Nullable<CheckInRequestRule> = null;
