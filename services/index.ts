@@ -19,6 +19,7 @@ import {
   GOOGLE_GEOCODING_API_TOKEN,
   SLACK_MONITORING_CHANNEL_ID,
   SLACK_ORGANIZATION_CHANNEL_ID,
+  SLACK_WORKSPACE_ID,
   filterSlackMemberRule,
   memberIsAtRiskRule,
   remindIfNotCheckedInWithinRule,
@@ -40,7 +41,10 @@ export const locationService = new LocationService({
   errorClass: LocationProviderError,
 });
 
-const slackMemberService = new SlackMemberService({ httpClient: slackClient });
+const slackMemberService = new SlackMemberService({
+  httpClient: slackClient,
+  teamId: SLACK_WORKSPACE_ID,
+});
 
 const uniqueStringGenerator = new Uuid4IdGenerator({ generator: v4 });
 

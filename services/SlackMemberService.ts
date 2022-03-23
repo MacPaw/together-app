@@ -3,10 +3,10 @@ import { SlackMemberProviderError } from '../exceptions';
 
 import type { WebClient, UsersInfoResponse } from '@slack/web-api';
 import type { ISlackMemberProvider } from './interfaces';
-import type { FilterSlackMemberRule } from '../types';
 
 export interface SlackChatUserServiceInjections {
   httpClient: WebClient;
+  teamId: string;
 }
 
 type SlackProfile = UsersInfoResponse['user'];
@@ -16,8 +16,11 @@ type ValidatedSlackProfile = NonNullable<SlackProfile>;
 export class SlackMemberService implements ISlackMemberProvider {
   private readonly httpClient: WebClient;
 
+  private readonly teamId: string;
+
   constructor(params: SlackChatUserServiceInjections) {
     this.httpClient = params.httpClient;
+    this.teamId = params.teamId;
   }
 
   public getAll(): Promise<SlackMember[]> {
@@ -29,8 +32,8 @@ export class SlackMemberService implements ISlackMemberProvider {
 
   private async fetchAllSlackProfiles(fetchedUsers: SlackProfile[] = [], cursor?: string): Promise<SlackProfile[]> {
     const response = cursor
-      ? await this.httpClient.users.list({ cursor })
-      : await this.httpClient.users.list();
+      ? await this.httpClient.users.list({ cursor, team_id: this.teamId })
+      : await this.httpClient.users.list({ team_id: this.teamId });
     const nextCursor = response.response_metadata?.next_cursor;
     const users = response.members || null;
 
