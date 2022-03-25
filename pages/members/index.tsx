@@ -17,7 +17,7 @@ import {
   getStatesForFiltersByCountry,
   sortMembersByEmailAsc,
 } from '../../helpers/client';
-import { validateSessionIsValid } from '../../helpers/server';
+import { normalizeString, validateSessionIsValid } from '../../helpers/server';
 import MemberList from '../../components/MemberList/MemberList';
 import Search from '../../components/Search/Search';
 import Filters from '../../components/Filters/Filters';
@@ -205,7 +205,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     validateSessionIsValid(session);
 
-    const user = await memberService.getByEmail(session!.user!.email!);
+    const email = normalizeString(session!.user!.email!);
+    const user = await memberService.getByEmail(email);
     const members = user.isAdmin
       ? await memberService.getAll()
       : [];

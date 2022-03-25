@@ -7,6 +7,7 @@ import {
   validateIsAttributesArguments,
   validateHttpMethod,
   handleAPIErrors,
+  normalizeString,
 } from '../../helpers/server';
 import type { Member } from '../../entities';
 
@@ -24,13 +25,14 @@ export default async function SetIsAttribute(req: NextApiRequest, res: NextApiRe
 
     validateSessionIsValid(session);
 
+    const email = normalizeString(session!.user!.email!);
     const { memberId, attribute, value }: Payload = req.body;
 
     validateIsAttributesArguments(attribute, value);
 
     const [member, requester] = await Promise.all([
       memberService.getById(memberId),
-      memberService.getByEmail(session!.user!.email!),
+      memberService.getByEmail(email),
     ]);
 
     validateRequesterIsAdmin(requester);

@@ -10,7 +10,7 @@ import { memberService } from '../services';
 import React from 'react';
 import type { MemberDto } from '../entities';
 import { InvalidSessionError } from '../exceptions';
-import { validateSessionIsValid } from '../helpers/server';
+import { validateSessionIsValid, normalizeString } from '../helpers/server';
 import { logger } from '../config';
 
 interface HomeProps {
@@ -64,7 +64,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     validateSessionIsValid(session);
 
-    const user = await memberService.getByEmail(session!.user!.email!);
+    const email = normalizeString(session!.user!.email!);
+    const user = await memberService.getByEmail(email);
 
     return {
       props: { user: user.toDto() },

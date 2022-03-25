@@ -67,7 +67,9 @@ export class SlackMemberService implements ISlackMemberProvider {
 
     return new SlackMember({
       id: user.id,
-      email: user.profile.email.toLowerCase(),
+      email: user.profile.email
+        .toLowerCase()
+        .trim(),
       name: user.profile.real_name,
       isDeleted: Boolean(user.deleted),
       isRestricted: Boolean(user.is_restricted),
