@@ -1,4 +1,5 @@
 export * from './ApplicationError';
+export * from './GoogleGeoCodingAPIError';
 export * from './InvalidIsAttributeArgument';
 export * from './InvalidHttpMethodError';
 export * from './InsufficientPermissionsError';
@@ -12,3 +13,4 @@ export * from './MemberNotFoundError';
 export * from './MissingEnvironmentVariableError';
 export * from './NoLocationParamsProvidedError';
 export * from './SlackMemberProviderError';
+export * from './UnknownHttpClientError';

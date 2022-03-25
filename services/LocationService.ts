@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientParams } from './HttpClient';
-import { LocationProviderError } from '../exceptions';
+import { GoogleGeoCodingAPIError, LocationProviderError } from '../exceptions';
 import { Location } from '../entities';
 
 import type { ILocationProvider } from './interfaces';
@@ -33,6 +33,8 @@ type GoogleGeoCodingResult = {
 
 type GoogleGeoCodingByLatLongResponse = {
   results: Array<GoogleGeoCodingResult>;
+  status: string;
+  error_message: string;
 }
 
 type GoogleGeoCodingByPlaceIdResponse = {
@@ -42,7 +44,11 @@ type GoogleGeoCodingByPlaceIdResponse = {
       global_code: string;
     };
   }>;
+  status: string;
+  error_message: string;
 }
+
+type AnyGoogleGeoCodingResponse = GoogleGeoCodingByLatLongResponse | GoogleGeoCodingByPlaceIdResponse;
 
 interface GeoCodingParams {
   language: string;
@@ -89,6 +95,8 @@ export class LocationService extends HttpClient implements ILocationProvider {
       },
     });
 
+    LocationService.validateResponseHasNoErrors(response);
+
     const location = Boolean(response.results[0])
       ? LocationService.getLocationByGeoCodingResult(response.results[0])
       : null;
@@ -108,6 +116,8 @@ export class LocationService extends HttpClient implements ILocationProvider {
         place_id: placeId,
       },
     });
+
+    LocationService.validateResponseHasNoErrors(response);
 
     const location = Boolean(response.results[0])
       ? LocationService.getLocationByGeoCodingResult(response.results[0])
@@ -130,6 +140,8 @@ export class LocationService extends HttpClient implements ILocationProvider {
         latlng: `${params.latitude},${params.longitude}`,
       },
     });
+
+    LocationService.validateResponseHasNoErrors(response);
 
     response.results.forEach((item: any) => {
       if (item.types.includes('locality')) {
@@ -172,5 +184,14 @@ export class LocationService extends HttpClient implements ILocationProvider {
   private getCommonGeoCodingParams(): GeoCodingParams {
     return { language: this.language, key: this.token };
   };
+
+  private static validateResponseHasNoErrors(response: AnyGoogleGeoCodingResponse): void | never {
+    if (response.status !== 'OK') {
+      throw new GoogleGeoCodingAPIError({
+        responseStatus: response.status,
+        responseErrorMessage: response.error_message,
+      });
+    }
+  }
 }
 

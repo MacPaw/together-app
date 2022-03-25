@@ -9,7 +9,6 @@ import { MemberService } from './MemberService';
 import { MessageService } from './MessageService';
 import { SlackMemberService } from './SlackMemberService';
 import { SlackRequestService } from './SlackRequestService';
-import { LocationProviderError } from '../exceptions';
 import { connection, validateAndReturnConnection } from '../db';
 import {
   HOST,
@@ -38,7 +37,6 @@ export const locationService = new LocationService({
   baseUrl: 'https://maps.googleapis.com/maps/api',
   token: GOOGLE_GEOCODING_API_TOKEN,
   language: 'en',
-  errorClass: LocationProviderError,
 });
 
 const slackMemberService = new SlackMemberService({
