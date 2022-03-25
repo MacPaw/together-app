@@ -11,4 +11,4 @@ export const getCheckInRedirectLink = (params: CheckInRedirectLinkParams): strin
   });
 
   return `${HOST}/check-in${queryString}`;
-}
+};
