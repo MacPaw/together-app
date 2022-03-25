@@ -199,6 +199,8 @@ To create your Slack application:
 * Once it has been installed, copy the **Signing Secret** from the app's **Basic Information** page to the `SLACK_TOGETHER_APP_SIGNING_SECRET`.
 * Go to the **OAuth & Permissions** page and copy the **Bot User OAuth Token** to the `SLACK_TOGETHER_APP_TOKEN` environment variable.
 
+:warning: Note that **Together App** has been created to work in a single Slack workspace. If your organization is on the Enterprise Grid, you will need to create an instance of **Together App** for each workspace.
+
 ```yaml
 display_information:
   name: Together App
@@ -270,11 +272,19 @@ To get this information:
 
 Follow these steps:
 
-* Create an API key for the Geocoding API according to [Google's documentation](https://developers.google.com/maps/documentation/geocoding/get-api-key).
-* Create an API key for the Places API  according to [Google's documentation](https://developers.google.com/maps/documentation/places/web-service/get-api-key).
-* Since the Places API key is exposed to the client, you'll want to restrict it by **HTTP Referrer**.
-* Copy the Geocoding API key to the `GOOGLE_GEOCODING_API_TOKEN` environment variable.
+* In order for **Together App** to work, you need to make sure that billing has been turned on and a payment method has been added. You can learn more about in [this documentation](https://cloud.google.com/billing/docs/how-to/payment-methods).
+* Create an API key for the Geocoding API:
+    * Create an API token.
+    * In the **API restrictions** section, restrict the token to only the **Geocoding API**.
+    * If you decide to further restrict the token using the **Application Restrictions**, note that this token is used on the back end, so using the **HTTP Referrer** restriction is not applicable. If you wish to restrict it for security reasons and you have a static IP address, you can restrict it by IP. 
+* Copy the Geocoding API key to the `GOOGLE_GEOCODING_API_TOKEN` environment variable.  
+* Create an API key for the Places API:
+    * Create an API token.
+    * In the **API restrictions** section, restrict the token to include both the **Places API** and the **Maps JavaScript API**.
+    * Since this API key is exposed to the client, you need to restrict it by **HTTP Referrer** in the **Application Restrictions** section.
 * Copy the Places API key to the `GOOGLE_PLACES_API_TOKEN` environment variable.
+
+:warning: If you run into issues with detecting location while checking in, please go through the outlined restrictions above and double check that your tokens comply.
 
 #### Generate a MapBox Public Key
 
@@ -343,7 +353,7 @@ Then, to update the schema, run the following command inside the application:
 npm run migrate:production
 ```
 
-Then, you need to seed the data: 
+Then, you need to seed the data. Please note that your server needs to be up and running before running this command: 
 
 ```bash
 npm run initialize
@@ -433,7 +443,7 @@ Then run the migrations:
 npm run migrate:local
 ```
 
-The seed data and initialize the app:
+Then seed data. Please note that your server needs to be up and running before running this command:
 
 ```bash
 npm run initialize
