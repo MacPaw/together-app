@@ -78,6 +78,15 @@ export class MemberProvider extends PrismaService implements IMemberProvider {
     return record && MemberProvider.getMemberFromRecord(record);
   }
 
+  public async findAnyInSystemBySlackId(slackId: string): Promise<Nullable<Member>> {
+    const record = await this.connection.memberRecord.findFirst({
+      where: { slackId },
+      include: { ...this.globalInclude },
+    });
+
+    return record && MemberProvider.getMemberFromRecord(record);
+  }
+
   public async getAll(): Promise<Member[]> {
     const records = await this.connection.memberRecord.findMany({
       where: { ...this.globalWhere },

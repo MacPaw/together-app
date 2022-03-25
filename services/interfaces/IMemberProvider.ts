@@ -8,6 +8,8 @@ export interface IMemberProvider {
 
   findBySlackId(slackId: string): Promise<Nullable<Member>>;
 
+  findAnyInSystemBySlackId(slackId: string): Promise<Nullable<Member>>;
+
   getAll(): Promise<Member[]>;
 
   getAllCheckInNonNull(): Promise<Member[]>;

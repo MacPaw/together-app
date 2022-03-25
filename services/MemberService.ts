@@ -84,6 +84,10 @@ export class MemberService implements IMemberService {
     return this.memberProvider.findBySlackId(slackId);
   }
 
+  public findAnyInSystemBySlackId(slackId: string): Promise<Nullable<Member>> {
+    return this.memberProvider.findAnyInSystemBySlackId(slackId);
+  }
+
   public getAll(): Promise<Member[]> {
     return this.memberProvider.getAll();
   }
@@ -175,7 +179,7 @@ export class MemberService implements IMemberService {
     const slackMembers = await this.slackMemberProvider.getAll();
 
     for (const member of slackMembers) {
-      const existing = await this.findBySlackId(member.id);
+      const existing = await this.findAnyInSystemBySlackId(member.id);
 
       if (existing) {
         existing.setName(member.name);
