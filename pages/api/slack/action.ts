@@ -27,6 +27,11 @@ export default async function HandleActions(req: NextApiRequest, res: NextApiRes
 
     const slackId = body.user.id;
 
+    /** @todo Remove this */
+    logger
+    ? logger.warn("slack action request body", body)
+    : console.warn("slack action request body", body);
+
     const actionId: string = body.type === 'block_actions'
       ? body.actions[0].action_id
       : body.callback_id;
