@@ -21,6 +21,8 @@ import {
 import { getShortLocationStringByMember, getDisplayTextFromCheckInBoolByMember } from '../helpers/client';
 import { SlackAction } from '../constants';
 
+import { logger } from '../config/custom';
+
 type OpenOrUpdateViewParams = AnyModalServiceMethodParams & { view: SlackViewDto };
 
 export interface ModalServiceParams {
@@ -217,6 +219,12 @@ export class ModalService implements IModalService {
 
   private async openOrUpdateView(params: OpenOrUpdateViewParams): Promise<void> {
     const { triggerId, viewId, view } = params;
+
+    
+        /** @todo Remove this */
+        logger
+        ? logger.warn("openOrUpdateView params", triggerId, viewId, view)
+        : console.warn("openOrUpdateView params", triggerId, viewId, view);
 
     if (triggerId) {
       await this.httpClient.views.open({
