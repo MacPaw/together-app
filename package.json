@@ -19,7 +19,8 @@
     "sync": "node jobs-dist/sync.js",
     "notify": "node jobs-dist/notify.js",
     "remind": "node jobs-dist/remind.js",
-    "request": "node jobs-dist/request.js"
+    "request": "node jobs-dist/request.js",
+    "heroku-postbuild": "npm run migrate:production"
   },
   "dependencies": {
     "@macpaw/macpaw-ui": "^3.9.6",
