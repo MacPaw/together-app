@@ -31,19 +31,20 @@ model MemberRecord {
 }
 
 model CheckInRecord {
-  id                    String          @id @Db.Uuid
-  latitude              Float?          @Db.DoublePrecision
-  longitude             Float?          @Db.DoublePrecision
-  country               String?
-  state                 String?
-  city                  String?
-  isSafe                Boolean
-  isAbleToAssist        Boolean
-  isAbleToWork          Boolean
-  comment               String?
-  memberId              String          @Db.Uuid
-  createdAt             DateTime?       @default(now())
-  updatedAt             DateTime?       @updatedAt
+  id                        String          @id @Db.Uuid
+  latitude                  Float?          @Db.DoublePrecision
+  longitude                 Float?          @Db.DoublePrecision
+  country                   String?
+  state                     String?
+  city                      String?
+  isSafe                    Boolean
+  isAbleToAssist            Boolean
+  isAbleToWork              Boolean
+  wasAbleToWorkYesterday    Boolean         @default(true)
+  comment                   String?
+  memberId                  String          @Db.Uuid
+  createdAt                 DateTime?       @default(now())
+  updatedAt                 DateTime?       @updatedAt
 
   // Relationships
 

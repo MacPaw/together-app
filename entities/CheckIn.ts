@@ -12,6 +12,7 @@ export interface CheckInAttributes extends RecordableEntityAttributes {
   isSafe: boolean;
   isAbleToAssist: boolean;
   isAbleToWork: boolean;
+  wasAbleToWorkYesterday: boolean;
   comment: Nullable<string>;
   memberId: string;
 }
@@ -29,6 +30,7 @@ export class CheckIn extends RecordableEntity implements IDtoable<CheckInDto>, I
   public readonly isSafe: boolean;
   public readonly isAbleToAssist: boolean;
   public readonly isAbleToWork: boolean;
+  public readonly wasAbleToWorkYesterday: boolean;
   public readonly comment: Nullable<string>;
   public readonly memberId: string;
 
@@ -45,6 +47,7 @@ export class CheckIn extends RecordableEntity implements IDtoable<CheckInDto>, I
     this.isAbleToWork = params.isAbleToWork;
     this.comment = params.comment;
     this.memberId = params.memberId
+    this.wasAbleToWorkYesterday = params.wasAbleToWorkYesterday
   }
 
   public toDto(): CheckInDto {

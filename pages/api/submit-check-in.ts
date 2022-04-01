@@ -13,6 +13,7 @@ interface Payload {
   isSafe: boolean;
   isAbleToAssist: boolean;
   isAbleToWork: boolean;
+  wasAbleToWorkYesterday: boolean;
   comment: string;
   placeId: Nullable<string>;
 }
@@ -30,6 +31,7 @@ export default async function SubmitCheckIn(req: NextApiRequest, res: NextApiRes
       isSafe,
       isAbleToAssist,
       isAbleToWork,
+      wasAbleToWorkYesterday,
       comment,
     }: Payload = req.body;
 
@@ -58,6 +60,7 @@ export default async function SubmitCheckIn(req: NextApiRequest, res: NextApiRes
         isSafe,
         isAbleToAssist,
         isAbleToWork,
+        wasAbleToWorkYesterday,
         comment: !!comment.length ? comment : null,
       },
     });

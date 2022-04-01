@@ -36,11 +36,15 @@ export default function CheckIn(props: CheckInProps) {
   const [isSafeValue, setIsSafeValue] = useState('');
   const [isAbleToAssistValue, setIsAbleToAssistValue] = useState('');
   const [isAbleToWorkValue, setIsAbleToWorkValue] = useState('');
+  const [wasAbleToWorkYesterdayValue, setWasAbleToWorkYesterdayValue] = useState('');
   const [safeError, setsafeError] = useState<boolean | string>(false);
   const [ableToAssistError, setAbleToAssistError] = useState<boolean | string>(
     false,
   );
   const [ableToWorkError, setAbleToWorkError] = useState<boolean | string>(
+    false,
+  );
+  const [wasAbleToWorkYesterdayError, setWasAbleToWorkYesterdayError] = useState<boolean | string>(
     false,
   );
   const [commentValue, setCommentValue] = useState('');
@@ -114,6 +118,10 @@ export default function CheckIn(props: CheckInProps) {
       setAbleToWorkError(errorMessage);
     }
 
+    if (!wasAbleToWorkYesterdayValue.length) {
+      setWasAbleToWorkYesterdayError(errorMessage);
+    }
+
     if (isManualMode && !placeId) {
       setPlaceIdError('Please select a location.');
     }
@@ -123,11 +131,13 @@ export default function CheckIn(props: CheckInProps) {
         !isSafeValue.length ||
         !isAbleToAssistValue.length ||
         !isAbleToWorkValue.length ||
+        !wasAbleToWorkYesterdayValue.length ||
         !placeId,
       );
     } else {
       return !Boolean(!isSafeValue.length ||
         !isAbleToAssistValue.length ||
+        !wasAbleToWorkYesterdayValue.length ||
         !isAbleToWorkValue.length);
     }
   }
@@ -146,6 +156,7 @@ export default function CheckIn(props: CheckInProps) {
           isSafe: isSafeValue === 'yes',
           isAbleToAssist: isAbleToAssistValue === 'yes',
           isAbleToWork: isAbleToWorkValue === 'yes',
+          wasAbleToWorkYesterday: wasAbleToWorkYesterdayValue === 'yes',
           comment: commentValue,
           placeId: placeId || null,
         })
@@ -190,6 +201,11 @@ export default function CheckIn(props: CheckInProps) {
   const isAbleToWorkChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAbleToWorkError(false);
     setIsAbleToWorkValue(event.target.value);
+  };
+
+  const wasAbleToWorkYesterdayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setAbleToWorkError(false);
+    setWasAbleToWorkYesterdayValue(event.target.value);
   };
 
   const commentChange = (value: InputValueType) => {
@@ -366,6 +382,21 @@ export default function CheckIn(props: CheckInProps) {
               value={isAbleToWorkValue}
               selected=''
               onChange={isAbleToWorkChange}
+            >
+              <option disabled value=''>
+                Select
+              </option>
+              <option value='yes'>Yes</option>
+              <option value='no'>No</option>
+            </Select>
+          </FormRow><FormRow>
+            <Select
+              error={wasAbleToWorkYesterdayError}
+              name='wasAbleToWorkYesterday'
+              label='Was you able to work yesterday?'
+              value={wasAbleToWorkYesterdayValue}
+              selected=''
+              onChange={wasAbleToWorkYesterdayChange}
             >
               <option disabled value=''>
                 Select

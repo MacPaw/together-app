@@ -106,3 +106,5 @@ jobs-dist
 
 # TernJS PORT file
 .tern-port
+/nginx/
+/certbot/
