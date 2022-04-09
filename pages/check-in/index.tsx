@@ -362,7 +362,7 @@ export default function CheckIn(props: CheckInProps) {
             <Select
               error={ableToAssistError}
               name='isAbleToAssist'
-              label='Are you able to help with anti-war initiatives?'
+              label='Do you need any help?'
               value={isAbleToAssistValue}
               selected=''
               onChange={isAbleToAssistChange}
@@ -393,7 +393,7 @@ export default function CheckIn(props: CheckInProps) {
             <Select
               error={wasAbleToWorkYesterdayError}
               name='wasAbleToWorkYesterday'
-              label='Was you able to work yesterday?'
+              label='Were you able to work on the previous working day?'
               value={wasAbleToWorkYesterdayValue}
               selected=''
               onChange={wasAbleToWorkYesterdayChange}
