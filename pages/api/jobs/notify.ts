@@ -1,44 +1,50 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { memberService } from '../../../services';
-import { handleAPIErrors, validateHttpMethod, validateJobsAPIToken } from '../../../helpers/server';
-import { logger } from '../../../config/custom';
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {memberService} from '../../../services';
+import {handleAPIErrors, validateHttpMethod, validateJobsAPIToken} from '../../../helpers/server';
+import {logger} from '../../../config/custom';
+import getDay from "date-fns/getDay";
 
 interface Payload {
-  token: string;
+    token: string;
 }
 
 export default async function NotifyOfLateCheckIns(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    validateHttpMethod('GET', req.method!);
 
-    const { token } = req.query as unknown as Payload;
+    if ([0, 6].includes(getDay(new Date()))) {
+        res.status(200).json({});
+    }
 
-    validateJobsAPIToken(token);
-  } catch (error) {
-    handleAPIErrors(error, res);
+    try {
+        validateHttpMethod('GET', req.method!);
 
-    return;
-  }
+        const {token} = req.query as unknown as Payload;
 
-  try {
-    res.status(200).json({});
+        validateJobsAPIToken(token);
+    } catch (error) {
+        handleAPIErrors(error, res);
 
-    await memberService.notifyOfLateCheckIns();
+        return;
+    }
 
-    const message = 'The job `notify` has been completed successfully.';
+    try {
+        res.status(200).json({});
 
-    logger
-      ? logger.info(message)
-      : console.log(message);
-  } catch (error) {
-    const message = 'An error occurred while running the `notify` job.';
+        await memberService.notifyOfLateCheckIns();
 
-    logger
-      ? logger.info(message)
-      : console.log(message);
+        const message = 'The job `notify` has been completed successfully.';
 
-    logger
-      ? logger.error(error)
-      : console.log(error);
-  }
+        logger
+            ? logger.info(message)
+            : console.log(message);
+    } catch (error) {
+        const message = 'An error occurred while running the `notify` job.';
+
+        logger
+            ? logger.info(message)
+            : console.log(message);
+
+        logger
+            ? logger.error(error)
+            : console.log(error);
+    }
 };
