@@ -34,7 +34,7 @@
     "mapbox-gl": "^2.7.0",
     "micro": "^9.3.4",
     "next": "12.1.0",
-    "next-auth": "^4.2.1",
+    "next-auth": "^4.20.1",
     "next-transpile-modules": "^9.0.0",
     "node-cache": "^5.1.2",
     "prisma": "^3.10.0",
