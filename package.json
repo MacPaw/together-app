@@ -1,7 +1,4 @@
 {
-  "name": "together-app",
-  "version": "1.0.0",
-  "private": false,
   "engines": {
     "node": "16.14.0"
   },
