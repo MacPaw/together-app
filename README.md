@@ -1,3 +1,5 @@
+![Together App](.github/header.png)
+
 <p align="center">
     <img src="docs/images/logo.png" alt="Logo" width="600px">
 </p>
